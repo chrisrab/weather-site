@@ -11,18 +11,11 @@
   margin-right: 20px;
 }
 
-.day {
-}
-
 .date {
   color: #b3b3b3;
 }
 
-.temp {
-}
-
 .weather-icon {
-}
-
-.description {
+  font-weight: bolder;
+  font-size: 30px;
 }

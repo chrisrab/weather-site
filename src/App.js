@@ -46,7 +46,7 @@ function App() {
     let weatherArray = weather.list
     let filtered = []
     if (weatherArray) {
-      weatherArray.forEach(element => {
+      weatherArray.forEach((element) => {
         if (element.dt_txt.includes(`12:00:00`) === true) {
           filtered.push(element)
         }
@@ -55,11 +55,9 @@ function App() {
     return filtered
   }
 
-  const date = new Date()
-  let whatDay = date.getDay()
   let day = ''
 
-  const getDay = number => {
+  const getDay = (number) => {
     switch (number) {
       case 0:
         day = 'Sunday'
@@ -104,6 +102,13 @@ function App() {
     return day
   }
 
+  const getCorrectDay = (d) => {
+    let date = new Date(d)
+    let day = date.getDay()
+    console.log(day)
+    return day
+  }
+
   if (!fetched) {
     return <div></div>
   } else {
@@ -115,10 +120,10 @@ function App() {
             className="search-box"
             type="text"
             placeholder="Search"
-            onChange={event => {
+            onChange={(event) => {
               setSearchTerm(event.target.value)
             }}
-            onKeyDown={event => {
+            onKeyDown={(event) => {
               if (event.key === 'Enter') {
                 setUserLocation(searchTerm)
               }
@@ -127,36 +132,15 @@ function App() {
         </div>
         <h3 className="location">{weather.city.name + ', ' + weather.city.country}</h3>
         <div className="weather-cards-container">
-          <WeatherCard
-            day="Today"
-            date={getMiddayWeather()[0].dt_txt}
-            temp={Math.round(getMiddayWeather()[0].main.temp) + 'ºc'}
-            description={getMiddayWeather()[0].weather[0].main}
-          />
-          <WeatherCard
-            day={getDay(whatDay + 1)}
-            date={getMiddayWeather()[1].dt_txt}
-            temp={Math.round(getMiddayWeather()[1].main.temp) + 'ºc'}
-            description={getMiddayWeather()[1].weather[0].main}
-          />
-          <WeatherCard
-            day={getDay(whatDay + 2)}
-            date={getMiddayWeather()[2].dt_txt}
-            temp={Math.round(getMiddayWeather()[2].main.temp) + 'ºc'}
-            description={getMiddayWeather()[2].weather[0].main}
-          />
-          <WeatherCard
-            day={getDay(whatDay + 3)}
-            date={getMiddayWeather()[2].dt_txt}
-            temp={Math.round(getMiddayWeather()[2].main.temp) + 'ºc'}
-            description={getMiddayWeather()[2].weather[0].main}
-          />
-          <WeatherCard
-            day={getDay(whatDay + 4)}
-            date={getMiddayWeather()[3].dt_txt}
-            temp={Math.round(getMiddayWeather()[3].main.temp) + 'ºc '}
-            description={getMiddayWeather()[3].weather[0].main}
-          />
+          {getMiddayWeather().map((d) => (
+            <WeatherCard
+              day={getDay(getCorrectDay(d.dt_txt))}
+              date={d.dt_txt}
+              temp={Math.round(d.main.temp) + 'ºc'}
+              description={d.weather[0].main}
+              key={day}
+            />
+          ))}
         </div>
       </div>
     )
