@@ -18,7 +18,7 @@ function App() {
     async function fetchAPI() {
       try {
         const response = await axios.get(
-          `http://api.openweathermap.org/data/2.5/forecast?q=${userLocation}&appid=${APIkey}&units=metric`
+          `https://api.openweathermap.org/data/2.5/forecast?q=${userLocation}&appid=${APIkey}&units=metric`
         )
         setWeather(response.data)
         setFetched(true)
