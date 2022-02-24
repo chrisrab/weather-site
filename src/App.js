@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react'
 
 require('dotenv').config()
 
-console.log(process.env.API_KEY)
-
 const axios = require('axios').default
 
 function App() {
@@ -16,7 +14,7 @@ function App() {
   const [userLocation, setUserLocation] = useState('Solihull')
   const [callFailed, setCallFailed] = useState(false)
 
-  const APIkey = process.env.REACT_APP_API_KEY
+  const APIkey = process.env.API_KEY
 
   useEffect(() => {
     async function fetchAPI() {
