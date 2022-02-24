@@ -3,6 +3,10 @@ import Header from './components/Header'
 import WeatherCard from './components/WeatherCard'
 import { useState, useEffect } from 'react'
 
+require('dotenv').config()
+
+console.log(process.env.API_KEY)
+
 const axios = require('axios').default
 
 function App() {
@@ -12,7 +16,7 @@ function App() {
   const [userLocation, setUserLocation] = useState('Solihull')
   const [callFailed, setCallFailed] = useState(false)
 
-  const APIkey = '12513b03b28619fe07e82d44fc8bef0b'
+  const APIkey = process.env.REACT_APP_API_KEY
 
   useEffect(() => {
     async function fetchAPI() {
