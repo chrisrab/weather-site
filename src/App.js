@@ -13,8 +13,9 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [userLocation, setUserLocation] = useState('Solihull')
   const [callFailed, setCallFailed] = useState(false)
+  const [API, setAPI] = useState(null)
 
-  const APIkey = process.env.API_KEY
+  const APIkey = API
 
   useEffect(() => {
     async function fetchAPI() {
@@ -29,9 +30,12 @@ function App() {
         setCallFailed(true)
       }
     }
-
     fetchAPI()
   }, [userLocation])
+
+  useEffect(() => {
+    axios.get('http://localhost:8000/api').then((res) => setAPI(res.data))
+  }, [])
 
   if (fetched) {
     console.log(weather)
