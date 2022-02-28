@@ -15,7 +15,13 @@ function App() {
   const [callFailed, setCallFailed] = useState(false)
   const [API, setAPI] = useState(null)
 
+  useEffect(() => {
+    axios.get('https://five-day-weather-backend.herokuapp.com/api').then((res) => setAPI(res.data))
+  }, [])
+
   const APIkey = API
+
+  console.log(APIkey)
 
   useEffect(() => {
     async function fetchAPI() {
@@ -32,10 +38,6 @@ function App() {
     }
     fetchAPI()
   }, [userLocation])
-
-  useEffect(() => {
-    axios.get('http://localhost:8000/api').then((res) => setAPI(res.data))
-  }, [])
 
   if (fetched) {
     console.log(weather)
