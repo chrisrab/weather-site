@@ -37,7 +37,7 @@ function App() {
       }
     }
     fetchAPI()
-  }, [userLocation])
+  }, [userLocation, APIkey])
 
   if (fetched) {
     console.log(weather)
