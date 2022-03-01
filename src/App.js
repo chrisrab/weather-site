@@ -14,14 +14,13 @@ function App() {
   const [userLocation, setUserLocation] = useState('Solihull')
   const [callFailed, setCallFailed] = useState(false)
   const [API, setAPI] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     axios.get('https://five-day-weather-backend.herokuapp.com/api').then((res) => setAPI(res.data))
   }, [])
 
   const APIkey = API
-
-  console.log(APIkey)
 
   useEffect(() => {
     async function fetchAPI() {
@@ -31,6 +30,7 @@ function App() {
         )
         setWeather(response.data)
         setFetched(true)
+        setLoading(false)
       } catch (error) {
         console.error(error)
         setCallFailed(true)
@@ -43,7 +43,7 @@ function App() {
     console.log(weather)
   }
 
-  if (callFailed === true) {
+  if (callFailed === true && loading === false) {
     alert(
       'Please enter an applicable city, check your spelling or put a country code after the location, such as "Birmingham, UK"'
     )
@@ -117,8 +117,12 @@ function App() {
     return day
   }
 
-  if (!fetched) {
-    return <div></div>
+  if (!fetched || loading) {
+    return (
+      <div>
+        <h1>Loading...</h1>
+      </div>
+    )
   } else {
     return (
       <div>
